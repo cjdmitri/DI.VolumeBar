@@ -31,7 +31,7 @@ int init()
 //+------------------------------------------------------------------+
 int deinit()
   {
-   ObjectsDeleteAll(0,OBJ_TEXT);//удаление старых объектов
+   ObjectsDeleteAll(0,OBJ_TEXT);//СѓРґР°Р»РµРЅРёРµ СЃС‚Р°СЂС‹С… РѕР±СЉРµРєС‚РѕРІ
    return(0);
   }
   
@@ -44,22 +44,22 @@ int start()
    return(0);
   }
   
-//Метод вычисляет и показывает объем бара в пунктах.
+//РњРµС‚РѕРґ РІС‹С‡РёСЃР»СЏРµС‚ Рё РїРѕРєР°Р·С‹РІР°РµС‚ РѕР±СЉРµРј Р±Р°СЂР° РІ РїСѓРЅРєС‚Р°С….
 void CreateStart()
   {
    int    counted_bars=IndicatorCounted();
-   ObjectsDeleteAll(0, OBJ_TEXT);      //удаление старых объектов
-   string      Text;                   //Текст метки
-   datetime    _time;                  //Время, координата метки
-   double      _price;                 //Цена, координата метки
-   double      _price2;                //Цена, координата метки объема тиков
+   ObjectsDeleteAll(0, OBJ_TEXT);      //СѓРґР°Р»РµРЅРёРµ СЃС‚Р°СЂС‹С… РѕР±СЉРµРєС‚РѕРІ
+   string      Text;                   //РўРµРєСЃС‚ РјРµС‚РєРё
+   datetime    _time;                  //Р’СЂРµРјСЏ, РєРѕРѕСЂРґРёРЅР°С‚Р° РјРµС‚РєРё
+   double      _price;                 //Р¦РµРЅР°, РєРѕРѕСЂРґРёРЅР°С‚Р° РјРµС‚РєРё
+   double      _price2;                //Р¦РµРЅР°, РєРѕРѕСЂРґРёРЅР°С‚Р° РјРµС‚РєРё РѕР±СЉРµРјР° С‚РёРєРѕРІ
 
-   for(int i=WindowBarsPerChart(); i>0; i--) //Перечисляем все видимые бары
+   for(int i=WindowBarsPerChart(); i>0; i--) //РџРµСЂРµС‡РёСЃР»СЏРµРј РІСЃРµ РІРёРґРёРјС‹Рµ Р±Р°СЂС‹
      {
-      double h = iHigh(Symbol(), 0, i);   //Максимальная цена текущего бара
-      double l = iLow(Symbol(), 0, i);    //Минимальная цена текущего бара
-      double Vol = h - l;                 //Объем текущего бара
-      if(Digits==2){Text=DoubleToStr(Vol*100,0);}      //Получаем чистое количество пунктов, в зависимости от знака после запятой
+      double h = iHigh(Symbol(), 0, i);   //РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ С†РµРЅР° С‚РµРєСѓС‰РµРіРѕ Р±Р°СЂР°
+      double l = iLow(Symbol(), 0, i);    //РњРёРЅРёРјР°Р»СЊРЅР°СЏ С†РµРЅР° С‚РµРєСѓС‰РµРіРѕ Р±Р°СЂР°
+      double Vol = h - l;                 //РћР±СЉРµРј С‚РµРєСѓС‰РµРіРѕ Р±Р°СЂР°
+      if(Digits==2){Text=DoubleToStr(Vol*100,0);}      //РџРѕР»СѓС‡Р°РµРј С‡РёСЃС‚РѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїСѓРЅРєС‚РѕРІ, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ Р·РЅР°РєР° РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№
       if(Digits == 3){Text = DoubleToStr(Vol * 1000, 0);}
       if(Digits == 4){Text = DoubleToStr(Vol * 10000, 0);}
       if(Digits == 5){Text = DoubleToStr(Vol * 100000, 0);}
@@ -67,17 +67,17 @@ void CreateStart()
         {
          _price=iLow(Symbol(),0,i)-5*Point;
          _price2=_price -(FontSize*Point);
-        }   //Если показываем снизу бара
+        }   //Р•СЃР»Рё РїРѕРєР°Р·С‹РІР°РµРј СЃРЅРёР·Сѓ Р±Р°СЂР°
       if(Position==1)
         {
          _price=iHigh(Symbol(),0,i)+4*FontSize*Point;
          _price2=_price+2*FontSize*Point;
-        }      //Если показываем сверху бара
-      _time = iTime(Symbol(), 0, i);               //Получаем временную координату
-      Txt[i] = StringConcatenate("Lbl", i);        //Присваиваем имя текущей метке
-      ObjectCreate(Txt[i], OBJ_TEXT, 0, _time, _price);        //Создаем сам объект метки
-      ObjectSetText(Txt[i], Text, FontSize, "Tahoma", ColorL); //Указываем параметры
-      ObjectSet(Txt[i], OBJPROP_ANGLE, ANGLE);                 //Указываем угол наклона метки
+        }      //Р•СЃР»Рё РїРѕРєР°Р·С‹РІР°РµРј СЃРІРµСЂС…Сѓ Р±Р°СЂР°
+      _time = iTime(Symbol(), 0, i);               //РџРѕР»СѓС‡Р°РµРј РІСЂРµРјРµРЅРЅСѓСЋ РєРѕРѕСЂРґРёРЅР°С‚Сѓ
+      Txt[i] = StringConcatenate("Lbl", i);        //РџСЂРёСЃРІР°РёРІР°РµРј РёРјСЏ С‚РµРєСѓС‰РµР№ РјРµС‚РєРµ
+      ObjectCreate(Txt[i], OBJ_TEXT, 0, _time, _price);        //РЎРѕР·РґР°РµРј СЃР°Рј РѕР±СЉРµРєС‚ РјРµС‚РєРё
+      ObjectSetText(Txt[i], Text, FontSize, "Tahoma", ColorL); //РЈРєР°Р·С‹РІР°РµРј РїР°СЂР°РјРµС‚СЂС‹
+      ObjectSet(Txt[i], OBJPROP_ANGLE, ANGLE);                 //РЈРєР°Р·С‹РІР°РµРј СѓРіРѕР» РЅР°РєР»РѕРЅР° РјРµС‚РєРё
      }
    WindowRedraw();
   }
